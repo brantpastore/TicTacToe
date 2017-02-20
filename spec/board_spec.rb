@@ -1,7 +1,8 @@
 require 'board'
 
 describe 'Board' do 
-	it 'initializes an empty board' do
+	it 'initializes and prints an empty board' do
 		nBoard = Board.new
-	end	
+		nBoard.printBoard()
+	end
 end

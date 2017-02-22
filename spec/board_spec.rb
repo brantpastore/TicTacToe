@@ -2,7 +2,7 @@ require 'board'
 
 describe 'Board' do 
 	it 'initializes and prints an empty board' do
-		nBoard = Board.new
-		nBoard.printBoard()
+		#TODO:
+		# => Pass nBoard = Board.new to the game loop
 	end
 end

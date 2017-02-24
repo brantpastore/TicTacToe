@@ -1,6 +1,9 @@
+#TODO:
+# => 
+
 class Player
 	def SelectionScreen()
-		puts "\nWho goes first? (1 For player, 2 for Computer):"
+		puts "\nWho goes first? (0 For player, 1 for Computer):"
 		return gets.chomp.to_i
 	end
 

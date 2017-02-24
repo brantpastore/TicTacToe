@@ -11,24 +11,30 @@ require 'bot'
 # User vs Computer
 describe 'Tic Taco Toe' do
 	context 'initializes our class instances, variables, and prints a blank board' do
-		$state = 1
+		$gameStateActive = 1
+		plrID = 0
+		botID = 1
 		nBoard = Board.new
 		nPlayer = Player.new
 		nBot = Bot.new
 		nBoard.printBoard()
-		res = 0
+		selection = 0
 
 		it 'run our game loop, and exit if someone wins. Otherwise loops until that condition is met' do
-			while ($state == 1) do
-				if (res == 0)
-					res = nPlayer.SelectionScreen()
-				elsif(res == 1)
-					sel = nPlayer.playerMove()
-					nBoard.move(1, sel)		
-				elsif (res == 2)
-					nBoard.move(2, nBot.botMove())
+			while ($gameStateActive == 1) do
+				if (selection == 0)
+					selection = nPlayer.SelectionScreen()
+				elsif(selection == plrID)
+					selection = nPlayer.playerMove()
+					nBoard.move(0, sel)
+					nBoard.checkForWinner(plrID)
+					nBoard.clearBoard()
+				elsif (selection == botID)
+					nBoard.move(botID, nBot.botMove())
+					nBoard.clearBoard()
+					nBoard.checkForWinner(botID)
 				else
-					res = 0
+					selection = 0
 				end
 			end
 		end

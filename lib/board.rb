@@ -54,9 +54,9 @@ class Board
 
 	# Call this after every move
 	def checkForWinner(userID)
-		if ($PlrID == 0)
+		if (userID == $plrID)
 			return 1
-		elsif($PlrID == 1)
+		elsif(userID == $botID)
 			return 2
 		end
 	end

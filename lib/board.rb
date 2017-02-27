@@ -9,32 +9,33 @@
 class Board
 	plrID = 0
 	botID = 1
-	Position = Array.new(8)
+	$posValid = true
+	$Position = Hash[0 => "0", 1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6", 7 => "7", 8 => "8"]
 	
+	# Is this safe? Is there a better way to do this?
 	def clearBoard()
 		system ("cls")
 	end
 
 	def printBoard()
-		#TODO: Fix this output so it resembles a grid
 		$index = 0
-		9.times do 
+		10.times do 
 			if ($index >= 0 && $index <= 2)
-				print Position[$index]
+				print $Position[$index]
 				print " | "
 				if ($index == 2)
 					puts "\n"
 				end
 			elsif ($index >= 3 && $index <= 6)
-				print Position[$index]
+				print $Position[$index]
 				print " | "
 				if ($index == 5)
 					puts "\n"
 				end
-			elsif ($index >= 7 && $index <= 9)
-				print Position[$index]
+			elsif ($index >= 7 && $index <= 8)
+				print $Position[$index]
 				print " | "
-				if ($index == 9)
+				if ($index == 8)
 					puts "\n"
 				end
 			end
@@ -42,22 +43,42 @@ class Board
 		end
 	end
 
-	def move(userID, nPos)
-		if (userID == $plrID)
-			Position[nPos] = "X"
-			checkForWinner($plrID)
-		elsif (userID == $botID)
-			Position[nPos] = "O"
-			checkForWinner($botID)
+	def invalidSelection()
+		self.clearBoard()
+		puts "Thats not a valid selection!"
+		self.printBoard()
+	end
+
+	def posTaken(nPos)
+		if ($Position[nPos] == "X" || $Position[nPos] == "O")
+			return true
+		else
+			return false
 		end
+	end
+
+	def move(userID, nPos)
+		 if (posTaken(nPos) == false)
+			if (userID == $plrID)
+				$Position[nPos] = "X"
+				checkForWinner($plrID)
+				return $posValid = true
+			elsif (userID == $botID)
+				$Position[nPos] = "O"
+				checkForWinner($botID)
+				return $posValid = true
+			end
+		 else
+			return false
+		 end
 	end
 
 	# Call this after every move
 	def checkForWinner(userID)
 		if (userID == $plrID)
-			return 1
+			# return gameOver(userID)
 		elsif(userID == $botID)
-			return 2
+			# return gameOver(userID)
 		end
 	end
 
@@ -65,10 +86,10 @@ class Board
 	def gameOver(userID)
 		if (userID == $plrID)
 			puts "Player Won!"
-			return gameStateActive = 0
+			return gameStateActive = false
 		elsif(userID == $botID)
 			puts "Computer Won!"
-			return gameStateActive = 0
+			return gameStateActive = false
 		end
 	end
 end

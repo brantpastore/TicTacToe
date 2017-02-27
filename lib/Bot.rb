@@ -1,9 +1,15 @@
 #TODO:
 # => Determine the best grid to use during the bots turn
 # => 
+require 'board'
 
 class Bot
-	def botMove()
-		return 3
+	nBoard = Board.new
+	def move(nBoard)
+		$sel = Random.new.rand(0..8) 
+		while(nBoard.posTaken($sel) == true)
+			$sel = Random.new.rand(0..8) 
+		end
+		return $sel
 	end
 end

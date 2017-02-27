@@ -3,11 +3,12 @@ require 'player'
 require 'bot'
 
 class TicTacToe
-	$gameStateActive = 1
+	$gameStateActive = true
 	$plrID = 0
 	$botID = 1
 	$selection = 3
 	$newGame = 3
+	$posValid = true
 
 	$nBoard = Board.new
 	$nPlayer = Player.new
@@ -18,24 +19,40 @@ class TicTacToe
 	end
 
 	def gameLoop()
-		while ($gameStateActive == 1) do
+		while ($gameStateActive == true) do
 			if ($selection != $plrID && $selection != $botID)
 				$selection = $nPlayer.selectionScreen()
 				$nBoard.printBoard()
 			elsif($selection == $plrID)
-				$selection = $nPlayer.playerMove()
-				$nBoard.move($plrID, $selection)
-				# $gameStateActive = $nBoard.checkForWinner($plrID)
-				$nBoard.clearBoard()
-				$nBoard.printBoard()
-				$selection = $botID
+				if ($posValid)
+					$selection = $nPlayer.playerMove()
+					$posValid = $nBoard.move($plrID, $selection)
+					$nBoard.clearBoard()
+					$nBoard.printBoard()
+					$selection = $botID
+				elsif (!$posValid)
+					$nBoard.invalidSelection()
+					$selection = $plrID
+					$posValid = true
+				end
 			elsif ($selection == $botID)
-				$nBoard.move($botID, $nBot.botMove())
-				$nBoard.clearBoard()
-				# $gameStateActive = $nBoard.checkForWinner($botID)
-				$nBoard.printBoard()
-				$selection = $plrID
+				if ($posValid)
+					$posValid = $nBoard.move($botID, $nBot.move($nBoard))
+					$nBoard.clearBoard()
+					$nBoard.printBoard()
+					$selection = $plrID
+				elsif (!$posValid)
+					# We wont print invalid selection when the bot goes, we'll just have it recalculate its move.
+					$selection = $botID
+					$posValid = true
+				end
 			end
+		end
+		if($nPlayer.newGame() == 0)
+			$gameStateActive = true
+			gameLoop()
+		else
+			exit
 		end
 	end
 end

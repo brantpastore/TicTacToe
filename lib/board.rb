@@ -11,7 +11,7 @@ class Board
 	botID = 1
 	$posValid = true
 	$Position = Hash[0 => "0", 1 => "1", 2 => "2", 3 => "3", 4 => "4", 5 => "5", 6 => "6", 7 => "7", 8 => "8"]
-	
+
 	# Is this safe? Is there a better way to do this?
 	def clearBoard()
 		system ("cls")
@@ -61,12 +61,12 @@ class Board
 		 if (posTaken(nPos) == false)
 			if (userID == $plrID)
 				$Position[nPos] = "X"
-				checkForWinner($plrID)
-				return $posValid = true
+				# checkForWinner($plrID)
+				return true
 			elsif (userID == $botID)
 				$Position[nPos] = "O"
-				checkForWinner($botID)
-				return $posValid = true
+				# checkForWinner($botID)
+				return true
 			end
 		 else
 			return false

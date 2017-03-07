@@ -23,14 +23,13 @@ class TicTacToe
 			if ($selection != $plrID && $selection != $botID)
 				$selection = $nPlayer.selectionScreen()
 				$nBoard.printBoard()
-			elsif($selection == $plrID)
+			elsif ($selection == $plrID)
 				if ($posValid)
-					$selection = $nPlayer.playerMove()
-					$posValid = $nBoard.move($plrID, $selection)
+					$posValid = $nBoard.move($plrID, $nPlayer.move())
 					$nBoard.clearBoard()
 					$nBoard.printBoard()
 					$selection = $botID
-				elsif (!$posValid)
+				elsif ($posValid == false)
 					$nBoard.invalidSelection()
 					$selection = $plrID
 					$posValid = true
@@ -41,8 +40,7 @@ class TicTacToe
 					$nBoard.clearBoard()
 					$nBoard.printBoard()
 					$selection = $plrID
-				elsif (!$posValid)
-					# We wont print invalid selection when the bot goes, we'll just have it recalculate its move.
+				elsif ($posValid == false)
 					$selection = $botID
 					$posValid = true
 				end

@@ -4,7 +4,7 @@
 require 'board'
 
 class Bot
-	nBoard = Board.new
+	nBoard = Board
 	def move(nBoard)
 		$sel = Random.new.rand(0..8) 
 		while(nBoard.posTaken($sel) == true)

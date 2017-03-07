@@ -7,7 +7,7 @@ class Player
 		return gets.chomp.to_i
 	end
 
-	def playerMove()
+	def move()
 		puts "\nIts your turn: Select the your position based on the number shown on your screen"
 		return sel = gets.chomp.to_i
 	end
